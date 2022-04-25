@@ -1,26 +1,17 @@
 import SwiftUI
 
-private struct LexiconEntry {
-    let lexicalUnit: String
-    let senses: [String: String]
-}
-
-private struct ReverseLexiconEntry {
-    let sense: String
-    let lexicalUnits: [String: String]
-}
-
 struct LexiconView: View {
     let name: String
     let lexicon: LIFT
 
     var body: some View {
         let entries = getEntries()
+        let lexicalUnits = entries.keys.sorted()
 
         NavigationView {
             List {
-                ForEach(entries, id: \.lexicalUnit) { entry in
-                    Text(entry.lexicalUnit)
+                ForEach(lexicalUnits, id: \.self) { lexicalUnit in
+                    Text(lexicalUnit)
                 }
             }
             .navigationTitle(name)
@@ -28,28 +19,30 @@ struct LexiconView: View {
         }
     }
 
-    private func getEntries() -> [LexiconEntry] {
-        lexicon.entries
-            .flatMap({ entry in
-                entry.lexicalUnits.map({ _, lexicalUnit in
-                    LexiconEntry(lexicalUnit: lexicalUnit, senses: entry.senses)
-                })
-            })
-            .sorted(by: { a, b in
-                a.lexicalUnit <= b.lexicalUnit
-            })
+    private func getEntries() -> [String: [[String: String]]] {
+        var entries: [String: [[String: String]]] = [:]
+        for entry in lexicon.entries {
+            for lexicalUnit in entry.lexicalUnits.values {
+                if entries[lexicalUnit] == nil {
+                    entries[lexicalUnit] = []
+                }
+                entries[lexicalUnit]!.append(entry.senses)
+            }
+        }
+        return entries
     }
 
-    private func getReverseEntries() -> [ReverseLexiconEntry] {
-        lexicon.entries
-            .flatMap({ entry in
-                entry.senses.map({ _, sense in
-                    ReverseLexiconEntry(sense: sense, lexicalUnits: entry.lexicalUnits)
-                })
-            })
-            .sorted(by: { a, b in
-                a.sense <= b.sense
-            })
+    private func getReverseEntries() -> [String: [[String: String]]] {
+        var reverseEntries: [String: [[String: String]]] = [:]
+        for entry in lexicon.entries {
+            for sense in entry.senses.values {
+                if reverseEntries[sense] == nil {
+                    reverseEntries[sense] = []
+                }
+                reverseEntries[sense]!.append(entry.lexicalUnits)
+            }
+        }
+        return reverseEntries
     }
 }
 
