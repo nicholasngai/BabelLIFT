@@ -35,7 +35,7 @@ extension LIFTParser: XMLParserDelegate {
         case ["lift", "entry", "lexical-unit", "form"], ["lift", "entry", "sense", "gloss"]:
             curLang = attributeDict["lang"]
         default:
-            print("Warning: Ignored LIFT path: \(path)")
+            break
         }
     }
 
@@ -49,7 +49,7 @@ extension LIFTParser: XMLParserDelegate {
         case ["lift", "entry", "lexical-unit", "form"], ["lift", "entry", "sense", "gloss"]:
             curLang = nil
         default:
-            print("Warning: Ignored LIFT path: \(path)")
+            break
         }
 
         path.removeLast()
@@ -62,7 +62,7 @@ extension LIFTParser: XMLParserDelegate {
         case ["lift", "entry", "sense", "gloss", "text"]:
             curSenses![curLang!] = string
         default:
-            print("Warning: Ignored LIFT path: \(path)")
+            break
         }
     }
 

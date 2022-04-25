@@ -1,10 +1,3 @@
-//
-//  LexiconView.swift
-//  BabelLIFT
-//
-//  Created by Nicholas Ngai on 4/25/22.
-//
-
 import SwiftUI
 
 private struct LexiconEntry {
