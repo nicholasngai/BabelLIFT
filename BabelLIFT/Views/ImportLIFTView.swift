@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct ImportLIFTView: View {
-    let onImport: (_ name: String, _ lift: LIFT) -> Void
+    let onImport: (_ name: String, _ lift: LIFT) -> String?
 
     @State private var name = ""
     @State private var lift: LIFT? = nil
     @State private var liftFilename: String? = nil
     @State private var isShowingFileImporter = false
+    @State private var shownError = ""
+    @State private var isShowingError = false
 
     @Environment(\.presentationMode) private var presentationMode
 
@@ -37,6 +39,7 @@ struct ImportLIFTView: View {
         }
         // TODO Restrict to .lift.
         .fileImporter(isPresented: $isShowingFileImporter, allowedContentTypes: [.item], onCompletion:handleLoadLift)
+        .alert(shownError, isPresented: $isShowingError) {}
     }
 
     private func handleLoadLift(result: Result<URL, Error>) {
@@ -54,13 +57,18 @@ struct ImportLIFTView: View {
     }
 
     private func handleDone() {
-        onImport(name, lift!)
+        let error = onImport(name, lift!)
+        if error != nil {
+            shownError = error!
+            isShowingError = true
+            return
+        }
         presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct ImportLIFTView_Previews: PreviewProvider {
     static var previews: some View {
-        ImportLIFTView(onImport: { name, lift in })
+        ImportLIFTView(onImport: { name, lift in nil })
     }
 }

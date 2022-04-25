@@ -1,14 +1,18 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var lexicons: [(name: String, lexicon: LIFT)] = []
+    @State private var lexicons: [String: LIFT] = [:]
 
     var body: some View {
+        let lexiconNames = lexicons.keys.sorted()
+
         NavigationView {
             List {
-                ForEach(lexicons, id: \.name) { pair in
-                    let (name, lexicon) = pair
-                    Text(name)
+                ForEach(lexiconNames, id: \.self) { name in
+                    let lexicon = lexicons[name]!
+                    NavigationLink(destination: LexiconView(name: name, lexicon: lexicon)) {
+                        Text(name)
+                    }
                 }
                 NavigationLink("Import New Lexicon...", destination: ImportLIFTView(onImport: addLexicon))
             }
@@ -16,8 +20,12 @@ struct HomeView: View {
         }
     }
 
-    private func addLexicon(_ name: String, _ lift: LIFT) {
-        lexicons.append((name: name, lexicon: lift))
+    private func addLexicon(_ name: String, _ lift: LIFT) -> String? {
+        if lexicons[name] != nil {
+            return "Lexicon with name already exists"
+        }
+        lexicons[name] = lift
+        return nil
     }
 }
 
