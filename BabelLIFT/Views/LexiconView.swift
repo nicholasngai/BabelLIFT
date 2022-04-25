@@ -10,7 +10,10 @@ struct LexiconView: View {
 
         List {
             ForEach(lexicalUnits, id: \.self) { lexicalUnit in
-                Text(lexicalUnit)
+                let senses = entries[lexicalUnit]!
+                NavigationLink(destination: LexiconEntryView(lexicalUnit: lexicalUnit, senses: senses)) {
+                    Text(lexicalUnit)
+                }
             }
         }
         .listStyle(.plain)

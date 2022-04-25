@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		346BF0DE2816400700936254 /* ImportLIFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BF0DD2816400700936254 /* ImportLIFTView.swift */; };
 		346BF0E22816EABD00936254 /* LexiconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BF0E12816EABD00936254 /* LexiconView.swift */; };
+		348202BB28173EB700928FFA /* LexiconEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348202BA28173EB700928FFA /* LexiconEntryView.swift */; };
 		34E706E328147D5500C12064 /* BabelLIFTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706E228147D5500C12064 /* BabelLIFTApp.swift */; };
 		34E706E528147D5500C12064 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706E428147D5500C12064 /* ContentView.swift */; };
 		34E706E728147D5700C12064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E706E628147D5700C12064 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		346BF0DD2816400700936254 /* ImportLIFTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLIFTView.swift; sourceTree = "<group>"; };
 		346BF0E12816EABD00936254 /* LexiconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiconView.swift; sourceTree = "<group>"; };
+		348202BA28173EB700928FFA /* LexiconEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiconEntryView.swift; sourceTree = "<group>"; };
 		34E706DF28147D5500C12064 /* BabelLIFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabelLIFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E706E228147D5500C12064 /* BabelLIFTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabelLIFTApp.swift; sourceTree = "<group>"; };
 		34E706E428147D5500C12064 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			children = (
 				346BF0DD2816400700936254 /* ImportLIFTView.swift */,
 				346BF0E12816EABD00936254 /* LexiconView.swift */,
+				348202BA28173EB700928FFA /* LexiconEntryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				34E706F7281623DE00C12064 /* LIFTParser.swift in Sources */,
 				346BF0E22816EABD00936254 /* LexiconView.swift in Sources */,
 				34E706E528147D5500C12064 /* ContentView.swift in Sources */,
+				348202BB28173EB700928FFA /* LexiconEntryView.swift in Sources */,
 				34E706E328147D5500C12064 /* BabelLIFTApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
