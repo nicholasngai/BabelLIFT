@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ImportLIFTView: View {
-    let onImport: (_ lift: LIFT) -> Void
+    let onImport: (_ name: String, _ lift: LIFT) -> Void
 
     @State private var name = ""
     @State private var lift: LIFT? = nil
@@ -54,13 +54,13 @@ struct ImportLIFTView: View {
     }
 
     private func handleDone() {
-        onImport(lift!)
+        onImport(name, lift!)
         presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct ImportLIFTView_Previews: PreviewProvider {
     static var previews: some View {
-        ImportLIFTView(onImport: { lift in })
+        ImportLIFTView(onImport: { name, lift in })
     }
 }
