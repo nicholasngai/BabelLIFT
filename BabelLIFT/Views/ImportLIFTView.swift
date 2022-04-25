@@ -13,23 +13,25 @@ struct ImportLIFTView: View {
     @Environment(\.presentationMode) private var presentationMode
 
     var body: some View {
-        NavigationView {
-            Form {
-                HStack {
-                    Text("Name")
-                    TextField("Lexicon name", text: $name)
+        Form {
+            HStack {
+                Text("Name")
+                TextField("Lexicon name", text: $name)
+            }
+            HStack {
+                Button(action: { isShowingFileImporter.toggle(); print(isShowingFileImporter) }) {
+                    Text("Select file...")
                 }
-                HStack {
-                    Button(action: { isShowingFileImporter.toggle(); print(isShowingFileImporter) }) {
-                        Text("Select file...")
-                    }
-                    if liftFilename != nil {
-                        Text(liftFilename!)
-                    }
+                if liftFilename != nil {
+                    Text(liftFilename!)
                 }
             }
-            .navigationTitle("Import New")
         }
+        // TODO Restrict to .lift.
+        .fileImporter(isPresented: $isShowingFileImporter, allowedContentTypes: [.item], onCompletion:handleLoadLift)
+        .alert(shownError, isPresented: $isShowingError) {}
+        .navigationTitle("Import New")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button(role: .destructive, action: handleDone) {
                 Text("Done")
@@ -37,9 +39,6 @@ struct ImportLIFTView: View {
             }
             .disabled(name == "" || lift == nil)
         }
-        // TODO Restrict to .lift.
-        .fileImporter(isPresented: $isShowingFileImporter, allowedContentTypes: [.item], onCompletion:handleLoadLift)
-        .alert(shownError, isPresented: $isShowingError) {}
     }
 
     private func handleLoadLift(result: Result<URL, Error>) {
@@ -69,6 +68,8 @@ struct ImportLIFTView: View {
 
 struct ImportLIFTView_Previews: PreviewProvider {
     static var previews: some View {
-        ImportLIFTView(onImport: { name, lift in nil })
+        NavigationView {
+            ImportLIFTView(onImport: { name, lift in nil })
+        }
     }
 }

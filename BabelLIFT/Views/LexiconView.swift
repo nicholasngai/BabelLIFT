@@ -8,15 +8,14 @@ struct LexiconView: View {
         let entries = getEntries()
         let lexicalUnits = entries.keys.sorted()
 
-        NavigationView {
-            List {
-                ForEach(lexicalUnits, id: \.self) { lexicalUnit in
-                    Text(lexicalUnit)
-                }
+        List {
+            ForEach(lexicalUnits, id: \.self) { lexicalUnit in
+                Text(lexicalUnit)
             }
-            .navigationTitle(name)
-            .listStyle(.plain)
         }
+        .listStyle(.plain)
+        .navigationTitle(name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func getEntries() -> [String: [[String: String]]] {
@@ -57,6 +56,8 @@ struct LexiconView_Previews: PreviewProvider {
     )
 
     static var previews: some View {
-        LexiconView(name: "Lobi", lexicon: lexicon)
+        NavigationView {
+            LexiconView(name: "Lobi", lexicon: lexicon)
+        }
     }
 }
