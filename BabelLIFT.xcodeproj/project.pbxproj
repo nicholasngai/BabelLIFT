@@ -11,6 +11,7 @@
 		34E706E528147D5500C12064 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706E428147D5500C12064 /* ContentView.swift */; };
 		34E706E728147D5700C12064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E706E628147D5700C12064 /* Assets.xcassets */; };
 		34E706EA28147D5700C12064 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E706E928147D5700C12064 /* Preview Assets.xcassets */; };
+		34E706F7281623DE00C12064 /* LIFTParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706F6281623DE00C12064 /* LIFTParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		34E706E428147D5500C12064 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		34E706E628147D5700C12064 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34E706E928147D5700C12064 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		34E706F6281623DE00C12064 /* LIFTParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIFTParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				34E706E428147D5500C12064 /* ContentView.swift */,
 				34E706E628147D5700C12064 /* Assets.xcassets */,
 				34E706E828147D5700C12064 /* Preview Content */,
+				34E706F6281623DE00C12064 /* LIFTParser.swift */,
 			);
 			path = BabelLIFT;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34E706F7281623DE00C12064 /* LIFTParser.swift in Sources */,
 				34E706E528147D5500C12064 /* ContentView.swift in Sources */,
 				34E706E328147D5500C12064 /* BabelLIFTApp.swift in Sources */,
 			);
