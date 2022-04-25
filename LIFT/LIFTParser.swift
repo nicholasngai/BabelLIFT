@@ -1,10 +1,3 @@
-//
-//  LIFTParser.swift
-//  BabelLIFT
-//
-//  Created by Nicholas Ngai on 4/24/22.
-//
-
 import Foundation
 
 struct LIFTEntry {

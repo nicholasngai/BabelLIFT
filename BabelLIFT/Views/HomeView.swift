@@ -1,13 +1,6 @@
-//
-//  ContentView.swift
-//  BabelLIFT
-//
-//  Created by Nicholas Ngai on 4/23/22.
-//
-
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @State private var isShowingFileImporter = false
 
     var body: some View {
@@ -39,6 +32,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        HomeView()
     }
 }
