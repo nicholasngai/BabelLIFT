@@ -4,7 +4,7 @@ import SwiftUI
 struct BabelLIFTApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            ContentView()
         }
     }
 }

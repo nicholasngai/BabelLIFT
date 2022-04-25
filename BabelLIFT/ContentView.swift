@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomeView: View {
+struct ContentView: View {
     @State private var lexicons: [String: LIFT] = [:]
 
     var body: some View {
@@ -31,6 +31,6 @@ struct HomeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        ContentView()
     }
 }

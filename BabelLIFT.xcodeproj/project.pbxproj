@@ -10,7 +10,7 @@
 		346BF0DE2816400700936254 /* ImportLIFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BF0DD2816400700936254 /* ImportLIFTView.swift */; };
 		346BF0E22816EABD00936254 /* LexiconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BF0E12816EABD00936254 /* LexiconView.swift */; };
 		34E706E328147D5500C12064 /* BabelLIFTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706E228147D5500C12064 /* BabelLIFTApp.swift */; };
-		34E706E528147D5500C12064 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706E428147D5500C12064 /* HomeView.swift */; };
+		34E706E528147D5500C12064 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706E428147D5500C12064 /* ContentView.swift */; };
 		34E706E728147D5700C12064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E706E628147D5700C12064 /* Assets.xcassets */; };
 		34E706EA28147D5700C12064 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E706E928147D5700C12064 /* Preview Assets.xcassets */; };
 		34E706F7281623DE00C12064 /* LIFTParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E706F6281623DE00C12064 /* LIFTParser.swift */; };
@@ -21,7 +21,7 @@
 		346BF0E12816EABD00936254 /* LexiconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiconView.swift; sourceTree = "<group>"; };
 		34E706DF28147D5500C12064 /* BabelLIFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabelLIFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E706E228147D5500C12064 /* BabelLIFTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabelLIFTApp.swift; sourceTree = "<group>"; };
-		34E706E428147D5500C12064 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		34E706E428147D5500C12064 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		34E706E628147D5700C12064 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34E706E928147D5700C12064 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		34E706F6281623DE00C12064 /* LIFTParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIFTParser.swift; sourceTree = "<group>"; };
@@ -41,7 +41,6 @@
 		346BF0DA28163E2000936254 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				34E706E428147D5500C12064 /* HomeView.swift */,
 				346BF0DD2816400700936254 /* ImportLIFTView.swift */,
 				346BF0E12816EABD00936254 /* LexiconView.swift */,
 			);
@@ -78,6 +77,7 @@
 			children = (
 				346BF0DA28163E2000936254 /* Views */,
 				34E706E228147D5500C12064 /* BabelLIFTApp.swift */,
+				34E706E428147D5500C12064 /* ContentView.swift */,
 				34E706E628147D5700C12064 /* Assets.xcassets */,
 				34E706E828147D5700C12064 /* Preview Content */,
 			);
@@ -165,7 +165,7 @@
 				346BF0DE2816400700936254 /* ImportLIFTView.swift in Sources */,
 				34E706F7281623DE00C12064 /* LIFTParser.swift in Sources */,
 				346BF0E22816EABD00936254 /* LexiconView.swift in Sources */,
-				34E706E528147D5500C12064 /* HomeView.swift in Sources */,
+				34E706E528147D5500C12064 /* ContentView.swift in Sources */,
 				34E706E328147D5500C12064 /* BabelLIFTApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
