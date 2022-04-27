@@ -4,21 +4,49 @@ struct LexiconView: View {
     let name: String
     let lexicon: LIFT
 
+    @State private var searchQuery: String = ""
+
     var body: some View {
         let entries = getEntries()
-        let lexicalUnits = entries.keys.sorted()
+        let lexicalUnits =
+        (searchQuery == ""
+         ? Array(entries.keys)
+         : entries.keys
+            .filter({ lexicalUnit in
+                let lexicalUnitSearch = lexicalUnit.lowercased()
+                let searchQuerySearch = searchQuery.lowercased()
+                return lexicalUnitSearch.contains(searchQuerySearch)
+            }))
+        .sorted()
 
-        List {
-            ForEach(lexicalUnits, id: \.self) { lexicalUnit in
-                let senses = entries[lexicalUnit]!
-                NavigationLink(destination: LexiconEntryView(lexicalUnit: lexicalUnit, senses: senses)) {
-                    Text(lexicalUnit)
+        VStack {
+            TextField(text: $searchQuery) {
+                Text("Search...")
+            }
+            .padding(7)
+            .background(Color(.systemGray6))
+            .cornerRadius(8)
+            .padding(.horizontal, 10)
+            .toolbar {
+                if searchQuery != "" {
+                    Button(action: { searchQuery = "" }) {
+                        Text("Cancel")
+                            .bold()
+                    }
                 }
             }
+            List {
+                ForEach(lexicalUnits, id: \.self) { lexicalUnit in
+                    let senses = entries[lexicalUnit]!
+                    NavigationLink(destination: LexiconEntryView(lexicalUnit: lexicalUnit, senses: senses)) {
+                        Text(lexicalUnit)
+                    }
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle(name)
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .listStyle(.plain)
-        .navigationTitle(name)
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func getEntries() -> [String: [[String: String]]] {
