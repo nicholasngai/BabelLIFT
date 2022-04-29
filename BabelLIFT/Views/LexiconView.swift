@@ -4,48 +4,71 @@ struct LexiconView: View {
     let name: String
     let lexicon: LIFT
 
-    @State private var searchQuery: String = ""
+    @State private var searchQuery = ""
 
     var body: some View {
-        let entries = getEntries()
-        let lexicalUnits =
-        (searchQuery == ""
-         ? Array(entries.keys)
-         : entries.keys
-            .filter({ lexicalUnit in
-                let lexicalUnitSearch = lexicalUnit.lowercased()
-                let searchQuerySearch = searchQuery.lowercased()
-                return lexicalUnitSearch.contains(searchQuerySearch)
-            }))
-        .sorted()
+        TabView {
+            let entries = getEntries()
+            let lexicalUnits =
+            (searchQuery == ""
+             ? Array(entries.keys)
+             : entries.keys
+                .filter({ lexicalUnit in
+                    let lexicalUnitSearch = lexicalUnit.lowercased()
+                    let searchQuerySearch = searchQuery.lowercased()
+                    return lexicalUnitSearch.contains(searchQuerySearch)
+                }))
+            .sorted()
 
-        VStack {
-            TextField(text: $searchQuery) {
-                Text("Search...")
-            }
-            .padding(7)
-            .background(Color(.systemGray6))
-            .cornerRadius(8)
-            .padding(.horizontal, 10)
-            .toolbar {
-                if searchQuery != "" {
-                    Button(action: { searchQuery = "" }) {
-                        Text("Cancel")
-                            .bold()
+            VStack {
+                renderSearch()
+                List {
+                    ForEach(lexicalUnits, id: \.self) { lexicalUnit in
+                        let senses = entries[lexicalUnit]!
+                        NavigationLink(destination: LexiconEntryView(lexicalUnit: lexicalUnit, senses: senses)) {
+                            Text(lexicalUnit)
+                        }
                     }
                 }
+                .listStyle(.plain)
+                .navigationTitle(name)
+                .navigationBarTitleDisplayMode(.inline)
             }
-            List {
-                ForEach(lexicalUnits, id: \.self) { lexicalUnit in
-                    let senses = entries[lexicalUnit]!
-                    NavigationLink(destination: LexiconEntryView(lexicalUnit: lexicalUnit, senses: senses)) {
-                        Text(lexicalUnit)
+            .tabItem {
+                Image(systemName: "goforward")
+                Text("Forward")
+            }
+
+            VStack {
+                let reverseEntries = getReverseEntries()
+                let senses =
+                (searchQuery == ""
+                 ? Array(reverseEntries.keys)
+                 : reverseEntries.keys
+                    .filter({ lexicalUnit in
+                        let lexicalUnitSearch = lexicalUnit.lowercased()
+                        let searchQuerySearch = searchQuery.lowercased()
+                        return lexicalUnitSearch.contains(searchQuerySearch)
+                    }))
+                .sorted()
+
+                renderSearch()
+                List {
+                    ForEach(senses, id: \.self) { sense in
+                        let lexicalUnits = reverseEntries[sense]!
+                        NavigationLink(destination: LexiconEntryView(lexicalUnit: sense, senses: lexicalUnits)) {
+                            Text(sense)
+                        }
                     }
                 }
+                .listStyle(.plain)
+                .navigationTitle(name)
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .listStyle(.plain)
-            .navigationTitle(name)
-            .navigationBarTitleDisplayMode(.inline)
+            .tabItem {
+                Image(systemName: "gobackward")
+                Text("Reverse")
+            }
         }
     }
 
@@ -73,6 +96,24 @@ struct LexiconView: View {
             }
         }
         return reverseEntries
+    }
+
+    private func renderSearch() -> some View {
+        TextField(text: $searchQuery) {
+            Text("Search...")
+        }
+        .padding(7)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
+        .padding(.horizontal, 10)
+        .toolbar {
+            if searchQuery != "" {
+                Button(action: { searchQuery = "" }) {
+                    Text("Cancel")
+                        .bold()
+                }
+            }
+        }
     }
 }
 
