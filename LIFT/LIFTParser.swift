@@ -1,5 +1,7 @@
 import Foundation
 
+import KissXML
+
 struct LIFTEntry {
     let lexicalUnits: [String: String]
     let senses: [String: String]
@@ -13,67 +15,68 @@ enum LIFTParserError: Error {
     case invalidInput
 }
 
-class LIFTParser: XMLParser {
-    private var parsed: LIFT? = nil
+class LIFTParser {
+    private let doc: XMLDocument
 
-    private var path: [String] = []
-    private var curLang: String? = nil
-    private var curLexicalUnits: [String: String]? = nil
-    private var curSenses: [String: String]? = nil
-    private var curEntries: [LIFTEntry] = []
-
-    override init(data: Data) {
-        super.init(data: data)
-        self.delegate = self
+    init(data: Data) throws {
+        doc = try XMLDocument(data: data, options: 0)
     }
 
     func getParsed() throws -> LIFT {
-        if parsed == nil {
+        let root = doc.rootElement()
+        if root == nil {
             throw LIFTParserError.invalidInput
         }
-        return parsed!
-    }
-}
-
-extension LIFTParser: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
-        path.append(elementName)
-
-        switch path {
-        case ["lift", "entry"]:
-            curLexicalUnits = [:]
-            curSenses = [:]
-        case ["lift", "entry", "lexical-unit", "form"], ["lift", "entry", "sense", "gloss"]:
-            curLang = attributeDict["lang"]
-        default:
-            break
+        var liftEntries: [LIFTEntry] = []
+        for entryNode in root!.children! {
+            guard let entry = entryNode as? XMLElement else { continue }
+            if entry.name != "entry" {
+                continue
+            }
+            var lexicalUnits: [String: String] = [:]
+            var senses: [String: String] = [:]
+            for lexicalUnitOrSenseNode in entry.children! {
+                guard let lexicalUnitOrSense = lexicalUnitOrSenseNode as? XMLElement else { continue }
+                switch lexicalUnitOrSense.name {
+                case "lexical-unit":
+                    for formNode in lexicalUnitOrSense.children! {
+                        guard let form = formNode as? XMLElement else { continue }
+                        let lang = form.attributesAsDictionary()["lang"]
+                        if form.name != "form" || lang == nil {
+                            continue
+                        }
+                        for textNode in form.children! {
+                            guard let text = textNode as? XMLElement else { continue }
+                            if text.name != "text" || text.stringValue == nil || text.stringValue == "" {
+                                continue
+                            }
+                            lexicalUnits[lang!] = text.stringValue!
+                        }
+                    }
+                case "sense":
+                    for glossNode in lexicalUnitOrSense.children! {
+                        guard let gloss = glossNode as? XMLElement else { continue }
+                        let lang = gloss.attributesAsDictionary()["lang"]
+                        if gloss.name != "gloss" || lang == nil {
+                            continue
+                        }
+                        for textNode in gloss.children! {
+                            guard let text = textNode as? XMLElement else { continue }
+                            if text.name != "text" || text.stringValue == nil || text.stringValue == "" {
+                                continue
+                            }
+                            senses[lang!] = text.stringValue!
+                        }
+                    }
+                default:
+                    break
+                }
+                if lexicalUnits.count == 0 || senses.count == 0 {
+                    continue
+                }
+                liftEntries.append(LIFTEntry(lexicalUnits: lexicalUnits, senses: senses))
+            }
         }
-    }
-
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        switch path {
-        case ["lift"]:
-            parsed = LIFT(entries: curEntries)
-        case ["lift", "entry"]:
-            let entry = LIFTEntry(lexicalUnits: curLexicalUnits!, senses: curSenses!)
-            curEntries.append(entry)
-        case ["lift", "entry", "lexical-unit", "form"], ["lift", "entry", "sense", "gloss"]:
-            curLang = nil
-        default:
-            break
-        }
-
-        path.removeLast()
-    }
-
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        switch path {
-        case ["lift", "entry", "lexical-unit", "form", "text"]:
-            curLexicalUnits![curLang!] = string
-        case ["lift", "entry", "sense", "gloss", "text"]:
-            curSenses![curLang!] = string
-        default:
-            break
-        }
+        return LIFT(entries: liftEntries)
     }
 }

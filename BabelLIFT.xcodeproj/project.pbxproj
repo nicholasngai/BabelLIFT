@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3460D1AA281C2F3000FB0F90 /* KissXML in Frameworks */ = {isa = PBXBuildFile; productRef = 3460D1A9281C2F3000FB0F90 /* KissXML */; };
 		346BF0DE2816400700936254 /* ImportLIFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BF0DD2816400700936254 /* ImportLIFTView.swift */; };
 		346BF0E22816EABD00936254 /* LexiconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346BF0E12816EABD00936254 /* LexiconView.swift */; };
 		348202BB28173EB700928FFA /* LexiconEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348202BA28173EB700928FFA /* LexiconEntryView.swift */; };
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3460D1AA281C2F3000FB0F90 /* KissXML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +113,9 @@
 			dependencies = (
 			);
 			name = BabelLIFT;
+			packageProductDependencies = (
+				3460D1A9281C2F3000FB0F90 /* KissXML */,
+			);
 			productName = BabelLIFT;
 			productReference = 34E706DF28147D5500C12064 /* BabelLIFT.app */;
 			productType = "com.apple.product-type.application";
@@ -139,6 +144,9 @@
 				Base,
 			);
 			mainGroup = 34E706D628147D5500C12064;
+			packageReferences = (
+				3460D1A8281C2F3000FB0F90 /* XCRemoteSwiftPackageReference "KissXML" */,
+			);
 			productRefGroup = 34E706E028147D5500C12064 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -371,6 +379,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3460D1A8281C2F3000FB0F90 /* XCRemoteSwiftPackageReference "KissXML" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robbiehanson/KissXML.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3460D1A9281C2F3000FB0F90 /* KissXML */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3460D1A8281C2F3000FB0F90 /* XCRemoteSwiftPackageReference "KissXML" */;
+			productName = KissXML;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 34E706D728147D5500C12064 /* Project object */;
 }

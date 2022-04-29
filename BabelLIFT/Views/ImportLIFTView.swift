@@ -49,9 +49,8 @@ struct ImportLIFTView: View {
             liftFilename = url.lastPathComponent
 
             let data = try Data(contentsOf: url)
-            let liftParser = LIFTParser(data: data)
             do {
-                liftParser.parse()
+                let liftParser = try LIFTParser(data: data)
                 lift = try liftParser.getParsed()
             } catch {
                 shownError = "LIFT file is invalid"
