@@ -45,11 +45,18 @@ struct ImportLIFTView: View {
         do {
             let url = try result.get()
             assert(url.startAccessingSecurityScopedResource())
+
+            liftFilename = url.lastPathComponent
+
             let data = try Data(contentsOf: url)
             let liftParser = LIFTParser(data: data)
-            liftParser.parse()
-            lift = liftParser.getParsed()
-            liftFilename = url.lastPathComponent
+            do {
+                liftParser.parse()
+                lift = try liftParser.getParsed()
+            } catch {
+                shownError = "LIFT file is invalid"
+                isShowingError = true
+            }
         } catch {
             print(error)
         }

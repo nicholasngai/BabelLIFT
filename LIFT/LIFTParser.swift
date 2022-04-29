@@ -9,6 +9,10 @@ struct LIFT {
     let entries: [LIFTEntry]
 }
 
+enum LIFTParserError: Error {
+    case invalidInput
+}
+
 class LIFTParser: XMLParser {
     private var parsed: LIFT? = nil
 
@@ -21,6 +25,13 @@ class LIFTParser: XMLParser {
     override init(data: Data) {
         super.init(data: data)
         self.delegate = self
+    }
+
+    func getParsed() throws -> LIFT {
+        if parsed == nil {
+            throw LIFTParserError.invalidInput
+        }
+        return parsed!
     }
 }
 
@@ -64,9 +75,5 @@ extension LIFTParser: XMLParserDelegate {
         default:
             break
         }
-    }
-
-    func getParsed() -> LIFT {
-        return parsed!
     }
 }
